@@ -1,7 +1,30 @@
+// Original Author: Edward Eldridge (https://github.com/EddieEldridge/)
+// Library Author: Collins Chacha
+
+/*
+** The library author disclaims copyright to this source code.  In place of
+** a legal notice, here is a blessing:
+**
+**    May you do good and not evil.
+**    May you find forgiveness for yourself and forgive others.
+**    May you share freely, never taking more than you give.
+**
+*************************************************************************
+*/
+
+/*
+ * This is an stb like header only library implementing the sha256 algorithm
+ * It only exposes one function which is sha256_hash which accepts the message
+ * to be hashed and a buffer to put the digest. If no buffer is provided it will
+ * allocate a buffer and return a pointer to it.
+ *
+*/
+
 #ifndef SHA256
 #define SHA256
 
 typedef char* digest;
+//return a pointer to the buffer or allocates a new buffer to put the result of the hash
 digest sha256_hash(char* msg, char* buff);
 #endif // !SHA256
 
@@ -137,7 +160,6 @@ bool fillMessageBlock(char* msg, union messageBlock *msgBlock, enum status *stat
             *state = PAD1;
         }
     }
-    
     return true;
 }
 
@@ -285,18 +307,6 @@ digest sha256_hash(char* msg, char* buf)
         H[6] += g;
         H[7] += h;
     }
-
-    printf("\n=================== HASH OUTPUT ==================================\n\n");
-    printf("%08x", H[0]);
-    printf("%08x", H[1]);
-    printf("%08x", H[2]);
-    printf("%08x", H[3]);
-    printf("%08x", H[4]);
-    printf("%08x", H[5]);
-    printf("%08x", H[6]);
-    printf("%08x", H[7]);
-    
-    printf("\n\n==================================================================\n\n");
 
     char* buffer;
     if(buf) buffer = buf; 
